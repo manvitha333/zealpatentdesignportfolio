@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Phone, Mail, Send, MapPin, Clock, CheckCircle } from "lucide-react";
+import { Phone, Mail, Send, CheckCircle } from "lucide-react";
 
 const ContactSection = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
