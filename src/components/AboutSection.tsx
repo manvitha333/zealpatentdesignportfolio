@@ -1,6 +1,5 @@
 import { useEffect, useRef } from "react";
 import { CheckCircle, Award, Shield, Clock } from "lucide-react";
-import qualityBadge from "@/assets/quality-badge.png";
 
 const features = [
   {
