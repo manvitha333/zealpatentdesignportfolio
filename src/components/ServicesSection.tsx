@@ -96,12 +96,14 @@ const ServicesSection = () => {
         </div>
 
         {/* Services Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {services.map((service, index) => (
             <Link
               key={service.title}
               to={`/samples?category=${service.category}`}
-              className="section-animate service-card bg-card p-6 rounded-xl border border-border cursor-pointer group block"
+              className={`section-animate service-card bg-card p-6 rounded-xl border border-border cursor-pointer group block ${
+                index === services.length - 1 ? "md:col-start-1 md:col-end-3 lg:col-start-2 lg:col-end-3" : ""
+              }`}
               style={{ transitionDelay: `${index * 50}ms` }}
             >
               <div className="w-14 h-14 bg-gold/10 rounded-xl flex items-center justify-center mb-5 group-hover:bg-gold/20 group-hover:scale-110 transition-all duration-300">
