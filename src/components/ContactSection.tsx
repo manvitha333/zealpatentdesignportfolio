@@ -87,7 +87,7 @@ const ContactSection = () => {
                 </a>
 
                 <a
-                  href="mailto:Zealpatentdesigns@gmail.com"
+                  href="mailto:contact@zealpatentdesigns.com"
                   className="flex items-center gap-4 cursor-pointer group p-3 rounded-xl transition-all duration-300 hover:bg-primary-foreground/5"
                 >
                   <div className="w-14 h-14 bg-gold/20 rounded-xl flex items-center justify-center group-hover:bg-gold/30 group-hover:scale-110 transition-all duration-300">
@@ -96,7 +96,7 @@ const ContactSection = () => {
                   <div>
                     <div className="text-primary-foreground/60 text-sm">Email</div>
                     <div className="font-semibold text-lg group-hover:text-gold transition-colors duration-300">
-                      Zealpatentdesigns@gmail.com
+                      contact@zealpatentdesigns.com
                     </div>
                   </div>
                 </a>
