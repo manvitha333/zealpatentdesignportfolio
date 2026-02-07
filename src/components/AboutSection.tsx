@@ -51,23 +51,17 @@ const AboutSection = () => {
                 About Us
               </span>
               <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground mt-3 leading-tight">
-                We Transform Ideas Into{" "}
-                <span className="gradient-text">Visual Clarity</span>
+                About Zeal Patent Designs — Experts in{" "}
+                <span className="gradient-text">Precision Patent Drawings</span>
               </h2>
             </div>
 
             <p className="section-animate text-muted-foreground text-lg leading-relaxed">
-              Welcome to Zeal Patent Designs. We are a team of highly experienced 
-              patent illustrators, each with over 6 years of professional experience, 
-              providing precise and legally compliant patent drawings for patent attorneys, 
-              law firms, inventors, and corporate clients.
+              We are the team experienced 10+ years in providing high-quality patent drawings and intellectual property support services. At Zeal Patent Designs, we specialize in creating precise, patent-office-compliant illustrations that help inventors, attorneys, and businesses secure strong patent applications.
             </p>
 
             <p className="section-animate text-muted-foreground text-lg leading-relaxed">
-              Our work emphasizes technical accuracy, clarity, and consistency with 
-              established patent drafting standards, supporting a wide range of technologies 
-              including mechanical systems, medical devices, consumer products, and 
-              software-based inventions.
+              From rough sketches, CAD models, and photographs to detailed technical specifications, we transform ideas into clear, publication-ready drawings across mechanical, medical, electrical, and high-tech domains. With a focus on accuracy, fast turnaround, and client satisfaction, we deliver reliable solutions that protect and present innovation at its best.
             </p>
 
             <div className="section-animate space-y-4">
