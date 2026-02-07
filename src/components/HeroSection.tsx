@@ -16,15 +16,13 @@ const HeroSection = () => {
               <span className="inline-block px-4 py-2 bg-gold/20 text-gold rounded-full text-sm font-medium tracking-wide"></span>
             </div>
             
-            <h1 className="fade-in-up fade-in-up-delay-1 font-display text-4xl md:text-5xl lg:text-6xl font-bold text-primary-foreground leading-tight">
-              Precision That{" "}
-              <span className="gradient-text">Strengthens</span>{" "}
-              Patents
+             <h1 className="fade-in-up fade-in-up-delay-1 font-display text-4xl md:text-5xl lg:text-6xl font-bold text-primary-foreground leading-tight">
+              Precision Patent Drawings That Turn{" "}
+              <span className="gradient-text">Ideas Into Reality</span>
             </h1>
             
             <p className="fade-in-up fade-in-up-delay-2 text-primary-foreground/80 text-lg md:text-xl max-w-xl leading-relaxed">
-              Professional patent illustrations crafted with technical accuracy and legal compliance. 
-              Transform your inventions into clear, compelling visual documentation.
+              Detailed drawings speak louder than words when it comes to protecting innovation. We specialize in high-quality patent, utility, and design drawings that clearly present every aspect of your invention. With 24/7 support, fast turnaround times, and uncompromised accuracy, we deliver reliable drawing solutions that help move your patent application forward — anytime, all year round.
             </p>
 
             <div className="fade-in-up fade-in-up-delay-3 flex flex-wrap gap-4">
