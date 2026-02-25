@@ -29,90 +29,102 @@ const Navbar = () => {
       const sectionId = path.replace("/#", "");
       if (location.pathname === "/") {
         const element = document.getElementById(sectionId);
-        element?.scrollIntoView({ behavior: "smooth" });
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth" });
+        }
       }
+    } else if (path === "/") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
+
+  // Handle hash navigation from other pages on initial load or mount
+  useEffect(() => {
+    if (location.pathname === "/" && location.hash) {
+      const sectionId = location.hash.replace("#", "");
+      setTimeout(() => {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth" });
+        }
+      }, 500); // Wait for animations and layout to settle
+    }
+  }, [location]);
 
   return (
     <>
       {/* Top Banner */}
-      <div className={`fixed top-0 left-0 right-0 z-50 bg-gold text-primary text-center text-sm font-medium py-1.5 transition-all duration-500 ${isScrolled ? "opacity-0 -translate-y-full" : "opacity-100 translate-y-0"}`}>
+      <div className={`fixed top-0 left-0 right-0 z-50 bg-gold text-primary text-center text-[10px] sm:text-sm font-medium py-1 sm:py-1.5 transition-all duration-500 ${isScrolled ? "opacity-0 -translate-y-full" : "opacity-100 translate-y-0"}`}>
         Need it fast? We deliver high-quality rush jobs on time.
       </div>
-    <nav
-      className={`fixed left-0 right-0 z-50 transition-all duration-500 ${
-        isScrolled
+      <nav
+        className={`fixed left-0 right-0 z-50 transition-all duration-500 ${isScrolled
           ? "top-0 bg-card/95 backdrop-blur-md shadow-lg py-3"
-          : "top-8 bg-transparent py-6"
-      }`}
-    >
-      <div className="container mx-auto px-6 flex items-center justify-between">
-        {/* Logo */}
-        <Link
-          to="/"
-          className="flex items-center gap-3 cursor-pointer group"
-          onClick={() => handleNavClick("/")}
-        >
-          <div className="w-10 h-10 bg-gold-gradient rounded-lg flex items-center justify-center transform transition-transform duration-300 group-hover:scale-110">
-            <span className="text-primary font-display font-bold text-xl">Z</span>
-          </div>
-          <span className={`font-display text-xl font-semibold transition-colors duration-300 ${
-            isScrolled ? "text-foreground" : "text-primary-foreground"
-          }`}>
-            Zeal Patent Designs
-          </span>
-        </Link>
+          : "top-7 sm:top-8 bg-transparent py-4 sm:py-6"
+          }`}
+      >
+        <div className="container mx-auto px-6 flex items-center justify-between">
+          {/* Logo */}
+          <Link
+            to="/"
+            className="flex items-center gap-3 cursor-pointer group"
+            onClick={() => handleNavClick("/")}
+          >
+            <div className="w-10 h-10 bg-gold-gradient rounded-lg flex items-center justify-center transform transition-transform duration-300 group-hover:scale-110">
+              <span className="text-primary font-display font-bold text-xl">Z</span>
+            </div>
+            <span className={`font-display text-xl font-semibold transition-colors duration-300 ${isScrolled ? "text-foreground" : "text-primary-foreground"
+              }`}>
+              Zeal Patent Designs
+            </span>
+          </Link>
 
-        {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center gap-8">
-          {navLinks.map((link) => (
-            <Link
-              key={link.name}
-              to={link.path.startsWith("/#") ? "/" : link.path}
-              onClick={() => handleNavClick(link.path)}
-              className={`nav-link font-medium cursor-pointer transition-colors duration-300 ${
-                isScrolled
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex items-center gap-8">
+            {navLinks.map((link) => (
+              <Link
+                key={link.name}
+                to={link.path.startsWith("/#") ? "/" : link.path}
+                onClick={() => handleNavClick(link.path)}
+                className={`nav-link font-medium cursor-pointer transition-colors duration-300 ${isScrolled
                   ? "text-foreground hover:text-accent"
                   : "text-primary-foreground/90 hover:text-accent"
+                  }`}
+              >
+                {link.name}
+              </Link>
+            ))}
+          </div>
+
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className={`md:hidden cursor-pointer p-2 rounded-lg transition-colors ${isScrolled ? "text-foreground" : "text-primary-foreground"
               }`}
-            >
-              {link.name}
-            </Link>
-          ))}
+          >
+            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
         </div>
 
-        {/* Mobile Menu Button */}
-        <button
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          className={`md:hidden cursor-pointer p-2 rounded-lg transition-colors ${
-            isScrolled ? "text-foreground" : "text-primary-foreground"
-          }`}
+        {/* Mobile Menu */}
+        <div
+          className={`md:hidden absolute top-full left-0 right-0 bg-card shadow-xl transition-all duration-300 overflow-hidden ${isMobileMenuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+            }`}
         >
-          {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
-      </div>
-
-      {/* Mobile Menu */}
-      <div
-        className={`md:hidden absolute top-full left-0 right-0 bg-card shadow-xl transition-all duration-300 overflow-hidden ${
-          isMobileMenuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
-        }`}
-      >
-        <div className="container mx-auto px-6 py-4 flex flex-col gap-4">
-          {navLinks.map((link) => (
-            <Link
-              key={link.name}
-              to={link.path.startsWith("/#") ? "/" : link.path}
-              onClick={() => handleNavClick(link.path)}
-              className="nav-link text-foreground font-medium cursor-pointer py-2 hover:text-accent transition-colors"
-            >
-              {link.name}
-            </Link>
-          ))}
+          <div className="container mx-auto px-6 py-4 flex flex-col gap-4">
+            {navLinks.map((link) => (
+              <Link
+                key={link.name}
+                to={link.path.startsWith("/#") ? "/" : link.path}
+                onClick={() => handleNavClick(link.path)}
+                className="nav-link text-foreground font-medium cursor-pointer py-2 hover:text-accent transition-colors"
+              >
+                {link.name}
+              </Link>
+            ))}
+          </div>
         </div>
-      </div>
-    </nav>
+      </nav>
     </>
   );
 };

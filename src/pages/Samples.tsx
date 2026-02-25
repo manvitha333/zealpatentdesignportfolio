@@ -125,6 +125,11 @@ const Samples = () => {
     }
   }, [searchParams]);
 
+  const filteredSamples =
+    activeCategory === "all"
+      ? samplesData
+      : samplesData.filter((s) => s.category === activeCategory);
+
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -140,8 +145,16 @@ const Samples = () => {
     const elements = sectionRef.current?.querySelectorAll(".section-animate");
     elements?.forEach((el) => observer.observe(el));
 
-    return () => observer.disconnect();
-  }, []);
+    // Fallback: make items visible if they didn't trigger
+    const timeout = setTimeout(() => {
+      elements?.forEach(el => el.classList.add("visible"));
+    }, 2000);
+
+    return () => {
+      observer.disconnect();
+      clearTimeout(timeout);
+    };
+  }, [activeCategory, filteredSamples]);
 
   const handleCategoryChange = (categoryId: string) => {
     setActiveCategory(categoryId);
@@ -152,10 +165,6 @@ const Samples = () => {
     }
   };
 
-  const filteredSamples =
-    activeCategory === "all"
-      ? samplesData
-      : samplesData.filter((s) => s.category === activeCategory);
 
   const getSectionTitle = (id: string) => categories.find((c) => c.id === id)?.name || id;
 
@@ -193,12 +202,12 @@ const Samples = () => {
               className="section-animate sample-image bg-card border border-border rounded-xl overflow-hidden cursor-pointer group"
               style={{ transitionDelay: `${index * 50}ms` }}
             >
-              <div className={`aspect-square bg-muted flex items-center justify-center relative overflow-hidden ${catId === 'flowdiagram' ? 'aspect-video' : ''
+              <div className={`aspect-square bg-white flex items-center justify-center relative overflow-hidden ${catId === 'flowdiagram' ? 'aspect-video' : ''
                 }`}>
                 <img
                   src={sample.image}
                   alt={sample.title}
-                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  className="absolute inset-0 w-full h-full object-contain transition-transform duration-500 group-hover:scale-110 p-2"
                 />
 
                 <div className="absolute inset-0 bg-primary/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
@@ -293,11 +302,11 @@ const Samples = () => {
               <X className="w-5 h-5" />
             </button>
 
-            <div className="overflow-auto max-h-[70vh] flex items-center justify-center bg-muted p-4">
+            <div className="flex items-center justify-center bg-white p-4 sm:p-8">
               <img
                 src={samplesData.find(s => s.id === selectedSample)?.image}
                 alt={samplesData.find(s => s.id === selectedSample)?.title}
-                className="max-w-full h-auto rounded-lg shadow-lg"
+                className="max-w-full max-h-[75vh] sm:max-h-[80vh] object-contain rounded-lg shadow-lg"
               />
             </div>
 

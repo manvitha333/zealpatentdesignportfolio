@@ -37,12 +37,20 @@ const AboutSection = () => {
     const elements = sectionRef.current?.querySelectorAll(".section-animate");
     elements?.forEach((el) => observer.observe(el));
 
-    return () => observer.disconnect();
+    // Fallback: make items visible if they didn't trigger
+    const timeout = setTimeout(() => {
+      elements?.forEach(el => el.classList.add("visible"));
+    }, 2000);
+
+    return () => {
+      observer.disconnect();
+      clearTimeout(timeout);
+    };
   }, []);
 
   return (
-    <section id="about" ref={sectionRef} className="py-24 bg-background">
-      <div className="container mx-auto px-6">
+    <section id="about" ref={sectionRef} className="py-16 sm:py-24 bg-background">
+      <div className="container mx-auto px-4 sm:px-6">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Left - Content */}
           <div className="space-y-8">
@@ -86,8 +94,7 @@ const AboutSection = () => {
               {features.map((feature, index) => (
                 <div
                   key={feature.title}
-                  className="section-animate service-card bg-card p-6 rounded-xl border border-border cursor-pointer group"
-                  style={{ transitionDelay: `${index * 100}ms` }}
+                  className={`section-animate service-card bg-card p-6 rounded-xl border border-border cursor-pointer group transition-delay-${index * 100 + 100}`}
                 >
                   <div className="flex items-start gap-4">
                     <div className="w-12 h-12 bg-gold/10 rounded-lg flex items-center justify-center group-hover:bg-gold/20 transition-colors">

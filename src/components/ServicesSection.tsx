@@ -81,7 +81,15 @@ const ServicesSection = () => {
     const elements = sectionRef.current?.querySelectorAll(".section-animate");
     elements?.forEach((el) => observer.observe(el));
 
-    return () => observer.disconnect();
+    // Fallback: make items visible if they didn't trigger
+    const timeout = setTimeout(() => {
+      elements?.forEach(el => el.classList.add("visible"));
+    }, 2000);
+
+    return () => {
+      observer.disconnect();
+      clearTimeout(timeout);
+    };
   }, []);
 
   return (
@@ -103,13 +111,12 @@ const ServicesSection = () => {
         </div>
 
         {/* Services Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {services.map((service, index) => (
             <Link
               key={service.title}
               to={`/samples?category=${service.category}`}
-              className="section-animate service-card bg-card p-6 rounded-xl border border-border cursor-pointer group block"
-              style={{ transitionDelay: `${index * 50}ms` }}
+              className={`section-animate service-card bg-card p-6 rounded-xl border border-border cursor-pointer group block transition-delay-${(index % 8) * 50 + 50}`}
             >
               <div className="w-14 h-14 bg-gold/10 rounded-xl flex items-center justify-center mb-5 group-hover:bg-gold/20 group-hover:scale-110 transition-all duration-300">
                 <service.icon className="w-7 h-7 text-gold" />

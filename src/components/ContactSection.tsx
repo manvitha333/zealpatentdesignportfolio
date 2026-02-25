@@ -22,7 +22,16 @@ const ContactSection = () => {
 
     const elements = sectionRef.current?.querySelectorAll(".section-animate");
     elements?.forEach(el => observer.observe(el));
-    return () => observer.disconnect();
+
+    // Fallback: make items visible if they didn't trigger
+    const timeout = setTimeout(() => {
+      elements?.forEach(el => el.classList.add("visible"));
+    }, 2000);
+
+    return () => {
+      observer.disconnect();
+      clearTimeout(timeout);
+    };
   }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -35,14 +44,14 @@ const ContactSection = () => {
   };
 
   return (
-    <section id="contact" ref={sectionRef} className="py-24 bg-background relative overflow-hidden">
+    <section id="contact" ref={sectionRef} className="py-16 sm:py-24 bg-background relative overflow-hidden">
       {/* Background decorative elements */}
       <div className="absolute top-0 left-0 w-72 h-72 bg-gold/5 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" />
       <div className="absolute bottom-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl translate-x-1/3 translate-y-1/3" />
 
-      <div className="container mx-auto px-4 sm:px-6 relative z-10">
+      <div className="container mx-auto px-4 relative z-10">
         {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
+        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-16">
           <span className="section-animate inline-flex items-center gap-2 text-gold font-semibold uppercase tracking-wider text-sm">
             <Sparkles className="w-4 h-4" />
             Get In Touch
@@ -60,7 +69,7 @@ const ContactSection = () => {
 
         <div className="grid lg:grid-cols-2 gap-12 items-start">
           {/* Contact Info */}
-          <div className="section-animate space-y-8" style={{ transitionDelay: "100ms" }}>
+          <div className="section-animate space-y-8 transition-delay-100">
             <div className="bg-hero-gradient p-6 sm:p-8 rounded-2xl text-primary-foreground relative overflow-hidden">
               {/* Decorative elements */}
               <div className="absolute top-0 right-0 w-40 h-40 bg-gold/10 rounded-full blur-3xl" />
@@ -104,7 +113,7 @@ const ContactSection = () => {
             </div>
 
             {/* Why Contact Us */}
-            <div className="section-animate bg-card p-8 rounded-2xl border border-border hover:border-gold/30 transition-all duration-500 hover:shadow-card-hover" style={{ transitionDelay: "200ms" }}>
+            <div className="section-animate bg-card p-8 rounded-2xl border border-border hover:border-gold/30 transition-all duration-500 hover:shadow-card-hover transition-delay-200">
               <h4 className="font-display text-xl font-semibold text-foreground mb-6">
                 Why Work With Us?
               </h4>
@@ -130,7 +139,7 @@ const ContactSection = () => {
           </div>
 
           {/* Contact Form */}
-          <div className="section-animate" style={{ transitionDelay: "200ms" }}>
+          <div className="section-animate transition-delay-200">
             <form
               onSubmit={handleSubmit}
               className="bg-card p-6 sm:p-8 rounded-2xl border border-border shadow-lg space-y-6 hover:border-gold/20 transition-all duration-500"
@@ -203,11 +212,10 @@ const ContactSection = () => {
 
               <button
                 type="submit"
-                className={`w-full font-semibold py-4 rounded-lg cursor-pointer flex items-center justify-center gap-2 transition-all duration-500 hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] ${
-                  isSubmitted
-                    ? "bg-green-500 text-primary-foreground"
-                    : "bg-gold-gradient text-primary"
-                }`}
+                className={`w-full font-semibold py-4 rounded-lg cursor-pointer flex items-center justify-center gap-2 transition-all duration-500 hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] ${isSubmitted
+                  ? "bg-green-500 text-primary-foreground"
+                  : "bg-gold-gradient text-primary"
+                  }`}
               >
                 {isSubmitted ? (
                   <>
